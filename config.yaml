@@ -1,2 +1,4 @@
-- email: info.cadcreation@gmail.com
-  path: /home/sharad/personal/cad-creation-automation/cader
+name: my-computer
+checks: 
+  - email: info.cadcreation@gmail.com
+    path: /home/sharad/personal/cad-creation-automation/cader
