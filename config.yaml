@@ -3,3 +3,5 @@ notifierEmail: cadramesha@gmail.com
 checks: 
   - email: info.cadcreation@gmail.com
     path: /home/sharad/personal/cad-creation-automation/cader
+  - email: info2.cadcreation@gmail.com
+    path: /home/sharad/personal/cad-creation-automation/cader2

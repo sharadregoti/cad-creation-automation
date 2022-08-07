@@ -114,9 +114,9 @@ func main() {
 
 	fromClause := ""
 	for _, cc := range c.Checks {
-		fromClause += cc.Email + ","
+		fromClause += cc.Email + " OR "
 	}
-	fromClause = strings.TrimSuffix(fromClause, ",")
+	fromClause = strings.TrimSuffix(fromClause, " OR ")
 
 	tick := time.NewTicker(30 * time.Second)
 	defer tick.Stop()
@@ -129,10 +129,11 @@ func main() {
 
 	log.Println("email address is ", profile.EmailAddress)
 
+	query := fmt.Sprintf("from:(%s),label:(inbox,-cad-creation-automation),newer_than:2d", fromClause)
+	log.Println("query", query)
 	for range tick.C {
 
 		// process 2 days message
-		query := fmt.Sprintf("from:%s,label:(inbox,-cad-creation-automation),newer_than:2d", fromClause)
 		req := srv.Users.Messages.List("me").Q(query)
 		// if pageToken != "" {
 		// 	req.PageToken(pageToken)
