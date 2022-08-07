@@ -1,4 +1,5 @@
 name: my-computer
+notifierEmail: cadramesha@gmail.com
 checks: 
   - email: info.cadcreation@gmail.com
     path: /home/sharad/personal/cad-creation-automation/cader

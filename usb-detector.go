@@ -9,11 +9,11 @@ import (
 	"google.golang.org/api/gmail/v1"
 )
 
-func detectusb(name string, srv *gmail.Service) {
+func detectusb(computerName, senderEmail, receiverEmail string, srv *gmail.Service) {
 	if drives, err := usbdrivedetector.Detect(); err == nil {
-		fmt.Printf("%d USB Devices Found\n", len(drives))
+		log.Printf("%d USB Devices Found\n", len(drives))
 		for _, d := range drives {
-			fmt.Println(d)
+			log.Println(d)
 		}
 
 		if len(drives) > 0 {
@@ -22,10 +22,10 @@ func detectusb(name string, srv *gmail.Service) {
 
 			// Compose the message
 			messageStr := []byte(
-				"From: sharadregoti15@gmail.com\r\n" +
-					"To: mailto:cadramesha@gmail.com\r\n" +
+				fmt.Sprintf("From: %s\r\n", senderEmail) +
+					fmt.Sprintf("To: mailto:%s\r\n", receiverEmail) +
 					"Subject: USB detected message\r\n\r\n" +
-					fmt.Sprintf("Your computer (%s) has %v usb devices attached", name, len(drives)))
+					fmt.Sprintf("Your computer (%s) has %v usb devices attached", computerName, len(drives)))
 
 			// Place messageStr into message.Raw in base64 encoded format
 			message.Raw = base64.URLEncoding.EncodeToString(messageStr)
@@ -35,11 +35,11 @@ func detectusb(name string, srv *gmail.Service) {
 			if err != nil {
 				log.Printf("error sending email: %v", err)
 			} else {
-				fmt.Println("Message sent!")
+				log.Println("Message sent!")
 			}
 		}
 
 	} else {
-		fmt.Println("error while reading usb device")
+		log.Println("error while reading usb device")
 	}
 }

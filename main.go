@@ -30,8 +30,9 @@ type Info struct {
 }
 
 type Config struct {
-	Name   string `yaml:"name"`
-	Checks []Info `yaml:"checks"`
+	Name          string `yaml:"name"`
+	NotifierEmail string `yaml:"notifierEmail"`
+	Checks        []Info `yaml:"checks"`
 }
 
 func (k Config) getPath(from string) string {
@@ -119,6 +120,14 @@ func main() {
 
 	tick := time.NewTicker(30 * time.Second)
 	defer tick.Stop()
+
+	profile, err := srv.Users.GetProfile("me").Do()
+	if err != nil {
+		log.Println("cannot get profile", err)
+		return
+	}
+
+	log.Println("email address is ", profile.EmailAddress)
 
 	for range tick.C {
 
@@ -218,6 +227,6 @@ func main() {
 		}
 
 		log.Println("Checking USB")
-		detectusb(c.Name, srv)
+		detectusb(c.Name, profile.EmailAddress, c.NotifierEmail, srv)
 	}
 }
