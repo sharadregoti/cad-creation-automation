@@ -1,6 +1,10 @@
 # Building for windows
 
+64 bit
 GOOS=windows GOARCH=amd64 go build -o cad-creation-automation.exe
+
+32 bit
+GOOS=windows GOARCH=386 go build -o cad-creation-automation-32.exe
 
 # Running
 
