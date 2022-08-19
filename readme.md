@@ -1,3 +1,9 @@
+# Cad-Creation-Automation
+
+A simple CLI app that does the following
+- Downloads email attachments from gmail & stores it in the local filesystem as specified by the config file sorted by date
+- Sends email notification if any USB attached to the computer/laptop
+
 # Building for windows
 
 64 bit
